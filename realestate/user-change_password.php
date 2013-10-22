@@ -1,9 +1,9 @@
 <?php
     /*
-     *      OSCLass – software for creating and publishing online classified
+     *      Osclass – software for creating and publishing online classified
      *                           advertising platforms
      *
-     *                        Copyright (C) 2010 OSCLASS
+     *                        Copyright (C) 2013 Osclass
      *
      *       This program is free software: you can redistribute it and/or
      *     modify it under the terms of the GNU Affero General Public License
@@ -26,7 +26,6 @@
         <h2><?php _e('Change your password', 'realestate'); ?></h2>
         <div class="ui-generic-form ui-center">
             <div class="ui-generic-form-content">
-            <?php UserForm::location_javascript(); ?>
                 <form action="<?php echo osc_base_url(true) ; ?>" method="post">
                     <input type="hidden" name="page" value="user" />
                     <input type="hidden" name="action" value="change_password_post" />
