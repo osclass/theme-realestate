@@ -2,3 +2,5 @@
 .DS_Store
 # Sublime2 config
 *sftp-config*
+realestate/node_modules/
+nbproject/
