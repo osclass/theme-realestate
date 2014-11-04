@@ -24,8 +24,8 @@
             <div id="right-side">
                 <h1><?php _e('Search results', 'realestate') ; ?></h1>
                 <div class="ad_list">
-                    <div id="list_head">   
-                        <?php _e('Sort by', 'realestate'); ?>:                         
+                    <div id="list_head">
+                        <?php _e('Sort by', 'realestate'); ?>:
                         <div class="ui-actionbox">
                             <?php $i = 0 ; ?>
                             <?php $orders = osc_list_orders();
@@ -40,6 +40,7 @@
                             <?php } ?>
                         </div>
                     </div>
+                    <?php search_ads_listing_top_fn(); ?>
                     <?php if(osc_count_items() == 0) { ?>
                         <p class="empty" ><?php printf(__('There are no results matching "%s"', 'realestate'), osc_search_pattern()) ; ?></p>
                     <?php } else { ?>
@@ -74,7 +75,7 @@
                         }
                     });
                 });
-                
+
                 function checkEmptyCategories() {
                     var n = $("input[id*=cat]:checked").length;
                     if(n>0) {

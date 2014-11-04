@@ -89,7 +89,7 @@
             $locales = osc_get_locales();
             $item = osc_item();
             $num_locales = count($locales);
-            
+
             foreach($locales as $locale) {
                 foreach($fields as $field){
                     if($num_locales > 1){
@@ -393,4 +393,25 @@
             return (osc_apply_filter('meta_description_filter', $text)) ;
         }
     }
+
+    /* ads  SEARCH */
+    function search_ads_listing_top_fn() {
+        if(osc_get_preference('search-results-top-728x90', 'realestate')!='') {
+            echo '<div class="clear"></div>' . PHP_EOL;
+            echo '<div class="ads_728">' . PHP_EOL;
+            echo osc_get_preference('search-results-top-728x90', 'realestate');
+            echo '</div>' . PHP_EOL;
+        }
+    }
+    osc_add_hook('search_ads_listing_top', 'search_ads_listing_top_fn');
+
+    function search_ads_listing_medium_fn() {
+        if(osc_get_preference('search-results-middle-728x90', 'realestate')!='') {
+            echo '<div class="clear"></div>' . PHP_EOL;
+            echo '<div class="ads_728">' . PHP_EOL;
+            echo osc_get_preference('search-results-middle-728x90', 'realestate');
+            echo '</div>' . PHP_EOL;
+        }
+    }
+    osc_add_hook('search_ads_listing_medium', 'search_ads_listing_medium_fn');
 ?>
