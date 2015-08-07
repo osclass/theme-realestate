@@ -18,10 +18,27 @@
      *      You should have received a copy of the GNU Affero General Public
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
+
     //Preferences
     if(!osc_get_preference('keyword_placeholder','realestate')){
         osc_set_preference('keyword_placeholder',__('Luxury Villas', 'realestate'),'realestate');
     }
+    if(osc_get_preference('theme_version', 'realestate')=='') {
+      osc_set_preference('theme_version', '0','realestate');
+    }
+
+    // update THEME_VERSION preference
+    if(osc_get_preference('theme_version', 'realestate')=='') {
+      // Update logo destination, now is uploaded to oc-content/uploads/
+      if( file_exists( WebThemes::newInstance()->getCurrentThemePath() . "images/logo.jpg" ) ) {
+        rename(WebThemes::newInstance()->getCurrentThemePath() . "images/logo.jpg", osc_uploads_path() . "realestate-logo.jpg");
+      }
+      if( file_exists( WebThemes::newInstance()->getCurrentThemePath() . "images/logo-footer.jpg" ) ) {
+        rename(WebThemes::newInstance()->getCurrentThemePath() . "images/logo-footer.jpg", osc_uploads_path() . "realestate-logo-footer.jpg");
+      }
+      osc_set_preference('theme_version', 201,'realestate');
+    }
+
     function item_realestate_attributes(){
         //get_realestate_attributes
         if(function_exists('get_realestate_attributes')){
@@ -133,8 +150,8 @@
     if( !function_exists('logo_header') ) {
         function logo_header() {
 
-             $html = '<a id="logo" href="' . osc_base_url() . '"><img border="0" alt="' . osc_page_title() . '" src="' . osc_current_web_theme_url('images/logo.jpg') . '" /></a>';
-             if( file_exists( WebThemes::newInstance()->getCurrentThemePath() . "images/logo.jpg" ) ) {
+             $html = '<a id="logo" href="' . osc_base_url() . '"><img border="0" alt="' . osc_page_title() . '" src="' . osc_base_url() . str_replace(ABS_PATH, '', osc_uploads_path()) . "realestate-logo.jpg" . '" /></a>';
+             if( file_exists( osc_uploads_path() . "realestate-logo.jpg" ) ) {
                 return $html;
              } else {
                 return '<a id="logo" class="logo-text" href="' . osc_base_url() . '">' . osc_page_title() . '</a>';
@@ -145,8 +162,8 @@
     if( !function_exists('logo_footer') ) {
         function logo_footer() {
 
-             $html = '<a id="logo-footer" href="' . osc_base_url() . '"><img border="0" alt="' . osc_page_title() . '" src="' . osc_current_web_theme_url('images/logo-footer.jpg') . '" /></a>';
-             if( file_exists( WebThemes::newInstance()->getCurrentThemePath() . "images/logo-footer.jpg" ) ) {
+             $html = '<a id="logo-footer" href="' . osc_base_url() . '"><img border="0" alt="' . osc_page_title() . '" src="' . osc_base_url() . str_replace(ABS_PATH, '', osc_uploads_path()) . "realestate-logo-footer.jpg" . '" /></a>';
+             if( file_exists( osc_uploads_path() . "realestate-logo-footer.jpg" ) ) {
                 return $html;
              } else {
                 return '<a id="logo-footer" class="logo-footer-text" href="' . osc_base_url() . '">' . osc_page_title() . '</a>';
@@ -156,15 +173,10 @@
     }
 
     if( !function_exists('realestate_theme_admin_menu') ) {
-        function realestate_theme_admin_menu() {
-            echo '<h3><a href="#">'. __('Realstate theme','realestate') .'</a></h3>
-            <ul>
-                <li><a href="' . osc_admin_render_theme_url('oc-content/themes/realestate/admin/admin_settings.php') . '">&raquo; '.__('Settings theme', 'realestate').'</a></li>
-            </ul>';
-        }
-
-        osc_add_hook('admin_menu', 'realestate_theme_admin_menu');
+        osc_admin_menu_appearance(__('Header logo', 'realestate'), osc_admin_render_theme_url('oc-content/themes/realestate/admin/logo_settings.php'), 'header_realestate');
+        osc_admin_menu_appearance(__('Theme settings', 'realestate'), osc_admin_render_theme_url('oc-content/themes/realestate/admin/admin_settings.php'), 'settings_realestate');
     }
+
     $sQuery = osc_get_preference('keyword_placeholder','realestate') ;
     osc_add_hook('footer','fjs_search');
     if(!function_exists('fjs_search')){

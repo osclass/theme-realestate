@@ -39,9 +39,9 @@
                     <strong><?php echo osc_item_category() ; ?></strong>
                 </div>
             </div>
-            
+
             <div id="left-side">
-                <?php if( osc_images_enabled_at_items() ) { 
+                <?php if( osc_images_enabled_at_items() ) {
                     if( osc_count_item_resources() > 0 ) { ?>
                         <div id="gallery">
                         <div class="ad-gallery">
@@ -121,13 +121,13 @@
                     </div>
                 </div>
 
-                
+
 
 
 
                 <div id="main">
                     <div id="description">
-                        
+
                     </div>
                     <!-- plugins -->
                     <?php if( osc_comments_enabled() ) { ?>
@@ -203,7 +203,7 @@
                 </div>
                 <div class="ui-content-box details-box">
                     <?php
-                if( osc_price_enabled_at_items() ) { 
+                if( osc_price_enabled_at_items() ) {
                     echo '<div class="price">'.osc_item_formated_price().'</div>';
                 }
                 if ( osc_item_country() != "" ||  osc_item_region() != '') {
@@ -296,7 +296,10 @@
                                         custom_theme_widget: 'recaptcha_widget'
                                     };
                                 </script>
-                                <style type="text/css"> div#recaptcha_widget, div#recaptcha_image > img { width:280px; } </style>
+                                <style type="text/css">
+                                div#recaptcha_widget, div#recaptcha_image > img { width:240px; margin-top: 5px; }
+                                div#recaptcha_image { margin-bottom: 15px; }
+                                </style>
                                 <div id="recaptcha_widget">
                                     <div id="recaptcha_image"><img /></div>
                                     <span class="recaptcha_only_if_image"><?php _e('Enter the words above','realestate'); ?>:</span>

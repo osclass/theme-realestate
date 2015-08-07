@@ -14,7 +14,7 @@ Theme update URI: realestate
     function realestate_theme_info() {
         return array(
              'name'        => 'Osclass realestate Theme'
-            ,'version'     => '2.0.0'
+            ,'version'     => '2.0.1'
             ,'description' => 'This is the Osclass realestate theme'
             ,'author_name' => 'Osclass Team'
             ,'author_url'  => 'http://osclass.org'
