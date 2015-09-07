@@ -26,6 +26,9 @@
     if(osc_get_preference('theme_version', 'realestate')=='') {
       osc_set_preference('theme_version', '0','realestate');
     }
+    if( osc_get_preference('defaultLocationShowAs','realestate')=='') {
+        osc_set_preference('defaultLocationShowAs', 'dropdown', 'realestate');
+    }
 
     // update THEME_VERSION preference
     if(osc_get_preference('theme_version', 'realestate')=='') {
@@ -430,4 +433,16 @@
         }
     }
     osc_add_hook('search_ads_listing_medium', 'search_ads_listing_medium_fn');
+
+    if(!function_exists('realestate_default_location_show_as')) {
+        function realestate_default_location_show_as() {
+            return osc_get_preference('defaultLocationShowAs', 'realestate');
+        }
+    }
+
+    osc_register_script('jquery-validate-realestate', osc_current_web_theme_js_url('jquery.validate.min.js'), 'jquery');
+    function realestate_scripts() {
+        osc_enqueue_script('jquery-validate-realestate');
+    }
+    osc_add_hook('init', 'realestate_scripts');
 ?>

@@ -23,9 +23,9 @@
         return 'noindex, nofollow';
     }
     function itemCustomHead(){
-        echo '<script type="text/javascript" src="'.osc_current_web_theme_js_url('jquery.validate.min.js').'"></script>'; 
+        echo '<script type="text/javascript" src="'.osc_current_web_theme_js_url('jquery.validate.min.js').'"></script>';
         echo '<script type="text/javascript" src="'.osc_current_web_theme_js_url('tabber-minimized.js').'"></script>'; ?>
-        <?php ItemForm::location_javascript_new(); ?>
+        
         <?php if(osc_images_enabled_at_items()) ItemForm::photos_javascript(); ?>
         <?php
     }
@@ -56,10 +56,10 @@
                     echo '<option value="'.$locale['pk_c_code'].'">'.$locale['s_short_name'].'</option>';
                 }
                 echo '</select>';
-                echo '</div>'; 
+                echo '</div>';
             }
-            
-            
+
+
             ?>
             <?php if(!osc_is_web_user_logged_in() ) { ?>
             <strong><?php _e('Publish contact','realestate'); ?></strong>
@@ -148,7 +148,7 @@
                             <?php osc_show_recaptcha(); ?>
                         </div>
                     </div>
-                    <?php }?> 
+                    <?php }?>
                 <a href="#" class="ui-button ui-button-gray js-submit"><?php _e("Update", 'realestate');?></a>
             </div>
         </div>
@@ -159,7 +159,7 @@
 <h2><?php _e('Item Location', 'realestate'); ?></h2>
 <div class="content add_item">
     <div class="ui-generic-form ">
-        <div class="ui-generic-form-content">            
+        <div class="ui-generic-form-content">
             <div class="row">
                 <label for="countryId"><?php _e('Country', 'realestate'); ?></label>
                 <?php ItemForm::country_select(osc_get_countries(), osc_user()) ; ?>

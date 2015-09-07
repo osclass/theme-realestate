@@ -7,6 +7,8 @@
                 osc_set_preference('search-results-top-728x90',     trim(Params::getParam('search-results-top-728x90', false, false, false)),          'realestate');
                 osc_set_preference('search-results-middle-728x90',  trim(Params::getParam('search-results-middle-728x90', false, false, false)),       'realestate');
 
+                osc_set_preference('defaultLocationShowAs',  trim(Params::getParam('defaultLocationShowAs')),       'realestate');
+
                 ob_end_clean();
                 header('Location: ' . osc_admin_render_theme_url('oc-content/themes/realestate/admin/admin_settings.php')); exit;
 
@@ -18,6 +20,21 @@
 
     <form style="padding: 20px;" action="<?php echo osc_admin_render_theme_url('oc-content/themes/realestate/admin/admin_settings.php'); ?>" method="post">
         <input type="hidden" name="action_specific" value="settings" />
+        <h2 class="render-title"><?php _e('Location input', 'theme_map'); ?></h2>
+        <fieldset>
+            <div class="form-horizontal">
+                <div class="form-row">
+                    <div class="form-label"><?php _e('Show location input as:', 'theme_map'); ?></div>
+                    <div class="form-controls">
+                        <select name="defaultLocationShowAs">
+                            <option value="dropdown" <?php if (realestate_default_location_show_as() == 'dropdown') { echo 'selected="selected"'; } ?>><?php _e('Dropdown', 'theme_map'); ?></option>
+                            <option value="autocomplete" <?php if (realestate_default_location_show_as() == 'autocomplete') { echo 'selected="selected"'; } ?>><?php _e('Autocomplete', 'theme_map'); ?></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
         <h2 class="render-title"><?php _e('Ads management', 'realestate'); ?></h2>
         <div class="form-row">
             <div class="form-label"></div>

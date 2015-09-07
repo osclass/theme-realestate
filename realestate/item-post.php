@@ -22,16 +22,23 @@
     function meta_robots_custom(){
         return 'noindex, nofollow';
     }
-    function itemCustomHead(){
-        echo '<script type="text/javascript" src="'.osc_current_web_theme_js_url('jquery.validate.min.js').'"></script>'; 
-        echo '<script type="text/javascript" src="'.osc_current_web_theme_js_url('tabber-minimized.js').'"></script>'; ?>
-        <?php ItemForm::location_javascript_new(); ?>
+
+    function itemCustomHead(){ 
+        echo '<script type="text/javascript" src="'.osc_current_web_theme_js_url('tabber-minimized.js').'"></script>';
+        ?>
+        <?php
+        if (realestate_default_location_show_as() == 'dropdown') {
+            ItemForm::location_javascript();
+        } else {
+            ItemForm::location_javascript_new();
+        }
+        ?>
         <?php if(osc_images_enabled_at_items()) ItemForm::photos_javascript(); ?>
         <!-- end only item-post.php -->
         <?php
 
     }
-    osc_add_hook('header','itemCustomHead');
+    osc_add_hook('header','itemCustomHead', 10);
 ?>
 <?php osc_current_web_theme_path('header.php') ; ?>
 <h1><strong><?php _e('Publish an item', 'realestate'); ?></strong></h1>
@@ -56,10 +63,10 @@
                     echo '<option value="'.$locale['pk_c_code'].'">'.$locale['s_short_name'].'</option>';
                 }
                 echo '</select>';
-                echo '</div>'; 
+                echo '</div>';
             }
-            
-            
+
+
             ?>
             <?php if(!osc_is_web_user_logged_in() ) { ?>
             <strong><?php _e('Publish contact','realestate'); ?></strong>
@@ -127,7 +134,7 @@
             </div>
             <?php } ?>
             <?php if( osc_images_enabled_at_items() ) { ?>
-                
+
                 <div class="row">
                     <label><?php _e('Photos', 'realestate'); ?></label>
                     <input type="file" name="photos[]" />
@@ -147,7 +154,7 @@
                             <?php osc_show_recaptcha(); ?>
                         </div>
                     </div>
-                    <?php }?> 
+                    <?php }?>
                 <a href="#" class="ui-button ui-button-gray js-submit"><?php _e("Publish", 'realestate');?></a>
             </div>
         </div>
@@ -158,18 +165,52 @@
 <h2><?php _e('Item Location', 'realestate'); ?></h2>
 <div class="content add_item">
     <div class="ui-generic-form ">
-        <div class="ui-generic-form-content">            
+        <div class="ui-generic-form-content">
+            <?php if(count(osc_get_countries()) > 1) { ?>
             <div class="row">
                 <label for="countryId"><?php _e('Country', 'realestate'); ?></label>
-                <?php ItemForm::country_select(osc_get_countries(), osc_user()) ; ?>
+                <?php ItemForm::country_select(osc_get_countries(), osc_user()); ?>
             </div>
-            <div class="row ui-row-text">
+            <div class="row <?php if(realestate_default_location_show_as() != 'dropdown') { ?>ui-row-text <?php } ?>">
                 <label for="regionId"><?php _e('Region', 'realestate'); ?></label>
-                <?php ItemForm::region_text(osc_user()) ; ?>
+                <?php
+                if (realestate_default_location_show_as() == 'dropdown') {
+                    ItemForm::region_select(osc_get_regions(osc_user_field('fk_c_country_code')), osc_user());
+                } else {
+                    ItemForm::region_text(osc_user());
+                }
+                ?>
             </div>
-            <div class="row ui-row-text">
+            <?php
+                } else {
+                    $aCountries = osc_get_countries();
+                    $aRegions = osc_get_regions($aCountries[0]['pk_c_code']);
+                    ?>
+            <input type="hidden" id="countryId" name="countryId" value="<?php echo osc_esc_html($aCountries[0]['pk_c_code']); ?>"/>
+            <div class="row <?php if(realestate_default_location_show_as() != 'dropdown') { ?>ui-row-text <?php } ?>">
+                <label for="regionId"><?php _e('Region', 'theme_map'); ?></label>
+                <?php
+                if (realestate_default_location_show_as() == 'dropdown') {
+                    ItemForm::region_select($aRegions, osc_user());
+                } else {
+                    ItemForm::region_text(osc_user());
+                }
+                ?>
+            </div>
+            <?php } ?>
+            <div class="row <?php if(realestate_default_location_show_as() != 'dropdown') { ?>ui-row-text <?php } ?>">
                 <label for="city"><?php _e('City', 'realestate'); ?></label>
-                <?php ItemForm::city_text(osc_user()) ; ?>
+                <?php
+                if (realestate_default_location_show_as() == 'dropdown') {
+                    if(Params::getParam('action') != 'item_edit') {
+                        ItemForm::city_select(array(array('pk_i_id' => '', 's_name' => __("Select a city..."))), osc_item());
+                    } else { // add new item
+                        ItemForm::city_select(osc_get_cities(osc_user_region_id()), osc_user());
+                    }
+                } else {
+                    ItemForm::city_text(osc_user());
+                }
+                ?>
             </div>
             <div class="row ui-row-text">
                 <label for="city"><?php _e('City Area', 'realestate'); ?></label>
