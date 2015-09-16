@@ -44,7 +44,7 @@
             ?>
         </ul>
 
-        <?php if (!defined('MULTISITE') || MULTISITE == 0) { ?>
+        <?php if (!defined('MULTISITE') || MULTISITE==0) { ?>
             <p><?php _e('This website is proudly using the open source classifieds software <strong><a href="http://osclass.org/">Osclass</a></strong>', 'realestate') ; ?>.</p>
             <p><a href="http://twitter.com/osclass" target="_blank" class="social-icon-twitter"><span class="icon"></span><?php _e('Follow @Osclass', 'realestate') ; ?></a></p>
         <?php }; ?>
