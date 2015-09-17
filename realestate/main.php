@@ -24,7 +24,11 @@
             <div id="home-search">
                 <form action="<?php echo osc_base_url(true) ; ?>" method="get" class="search" onsubmit="javascript:return doSearch();">
                     <input type="hidden" name="page" value="search" />
+                    <?php if(osc_get_preference('homepage-claim', 'realstate')=='') { ?>
                     <h2><?php _e("Find a place, <span>find a home</span>", 'realestate');?></h2>
+                    <?php } else { ?>
+                    <h2><?php echo osc_get_preference('homepage-claim', 'realstate'); ?></h2>
+                    <?php }  ?>
                     <div class="has-placeholder"><span id="search-placeholder"><?php echo osc_get_preference('keyword_placeholder','realestate') ; ?></span><input type="text" name="sPattern" id="query" class="input-text js-input-home" value="" /><a href="#" class="ui-button ui-button-big js-submit"><?php _e("Search", 'realestate');?></a><div id="message-seach"></div></div>
                 </form>
                 <div class="categories">
@@ -72,7 +76,7 @@
                     <?php
                             $index++;
                             if($index == 4){
-                                break; 
+                                break;
                             }
                         }
                     ?>
@@ -90,13 +94,13 @@
                     $("#premium-stage .ui-item:last").fadeOut(500,function(){
                         $(this).remove().prependTo('#premium-stage');
                     });
-                    
+
                 }
                 function showSlide(el){
                      clearInterval(slider);
                      if('#'+$("#slider-stage .slider:last").attr('id') != el){
                           $(el).remove().insertBefore("#slider-stage .slider:last");
-                          showNext();    
+                          showNext();
                      }
                 }
                 /* ]]> */
@@ -105,7 +109,7 @@
         </div>
         <div class="content home">
             <h2><?php _e('Latest Items', 'realestate') ; ?></h2>
-            <div id="latest-ads">               
+            <div id="latest-ads">
                 <?php if( osc_count_latest_items() == 0) { ?>
                     <p class="empty"><?php _e('No Latest Items', 'realestate') ; ?></p>
                 <?php } else { ?>
