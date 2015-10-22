@@ -203,7 +203,7 @@
                 <?php
                 if (realestate_default_location_show_as() == 'dropdown') {
                     if(Params::getParam('action') != 'item_edit') {
-                        ItemForm::city_select(array(array('pk_i_id' => '', 's_name' => __("Select a city..."))), osc_item());
+                        ItemForm::city_select(null, osc_item());
                     } else { // add new item
                         ItemForm::city_select(osc_get_cities(osc_user_region_id()), osc_user());
                     }
