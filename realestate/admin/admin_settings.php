@@ -2,6 +2,8 @@
     if(Params::getParam("action_specific")!='') {
         switch(Params::getParam("action_specific")) {
             case('settings'):
+                osc_set_preference('homepage-claim',    trim(Params::getParam('homepage-claim', false, false, false)),   'realstate');
+
                 osc_set_preference('header-728x90',         trim(Params::getParam('header-728x90', false, false, false)),                  'realestate');
                 osc_set_preference('sidebar-300x250',       trim(Params::getParam('sidebar-300x250', false, false, false)),                'realestate');
                 osc_set_preference('search-results-top-728x90',     trim(Params::getParam('search-results-top-728x90', false, false, false)),          'realestate');
@@ -20,15 +22,28 @@
 
     <form style="padding: 20px;" action="<?php echo osc_admin_render_theme_url('oc-content/themes/realestate/admin/admin_settings.php'); ?>" method="post">
         <input type="hidden" name="action_specific" value="settings" />
-        <h2 class="render-title"><?php _e('Location input', 'theme_map'); ?></h2>
+
+        <h2 class="render-title"><?php _e('Homepage text', 'realestate'); ?></h2>
         <fieldset>
             <div class="form-horizontal">
                 <div class="form-row">
-                    <div class="form-label"><?php _e('Show location input as:', 'theme_map'); ?></div>
+                    <div class="form-label"><?php _e('Text:', 'realestate'); ?></div>
+                    <div class="form-controls">
+                        <textarea name="homepage-claim" rows="4" cols="50"><?php echo osc_get_preference('homepage-claim', 'realstate'); ?></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <h2 class="render-title"><?php _e('Location input', 'realestate'); ?></h2>
+        <fieldset>
+            <div class="form-horizontal">
+                <div class="form-row">
+                    <div class="form-label"><?php _e('Show location input as:', 'realestate'); ?></div>
                     <div class="form-controls">
                         <select name="defaultLocationShowAs">
-                            <option value="dropdown" <?php if (realestate_default_location_show_as() == 'dropdown') { echo 'selected="selected"'; } ?>><?php _e('Dropdown', 'theme_map'); ?></option>
-                            <option value="autocomplete" <?php if (realestate_default_location_show_as() == 'autocomplete') { echo 'selected="selected"'; } ?>><?php _e('Autocomplete', 'theme_map'); ?></option>
+                            <option value="dropdown" <?php if (realestate_default_location_show_as() == 'dropdown') { echo 'selected="selected"'; } ?>><?php _e('Dropdown', 'realestate'); ?></option>
+                            <option value="autocomplete" <?php if (realestate_default_location_show_as() == 'autocomplete') { echo 'selected="selected"'; } ?>><?php _e('Autocomplete', 'realestate'); ?></option>
                         </select>
                     </div>
                 </div>
