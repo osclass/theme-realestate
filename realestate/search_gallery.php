@@ -52,7 +52,7 @@
         <?php } ?>
 <?php } ?>
         <?php $i=1; while(osc_has_items()) { $i++; ?>
-            <div class="ui-item ui-item-list">
+            <div class="<?php osc_run_hook("highlight_class"); ?> ui-item ui-item-list">
                 <div class="frame">
                     <a href="<?php echo osc_item_url() ; ?>"><?php if( osc_images_enabled_at_items() ) { ?>
                         <?php if( osc_count_item_resources() ) { ?>
