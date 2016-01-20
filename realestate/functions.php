@@ -39,7 +39,7 @@
       if( file_exists( WebThemes::newInstance()->getCurrentThemePath() . "images/logo-footer.jpg" ) ) {
         rename(WebThemes::newInstance()->getCurrentThemePath() . "images/logo-footer.jpg", osc_uploads_path() . "realestate-logo-footer.jpg");
       }
-      osc_set_preference('theme_version', 201,'realestate');
+      osc_set_preference('theme_version', 202,'realestate');
     }
 
     function item_realestate_attributes(){
