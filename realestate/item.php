@@ -100,6 +100,11 @@
                                 <?php     } ?>
                                 <?php } ?>
                                 <strong class="share"><a href="<?php echo osc_item_send_friend_url() ; ?>" rel="nofollow" class="ui-button"><?php _e('Share', 'realestate') ; ?></a></strong>
+                                <?php if(function_exists('watchlist_class')) { ?>
+                                <strong class="share"><?php watchlist_class('ui-button'); ?></strong>
+                                <?php } else if(function_exists('watchlist')) { ?>
+                                <strong class="share"><?php watchlist(); ?></strong>
+                                <?php } ?>
                             </p>
                         </td>
                         <?php if(osc_get_preference('insertion','realestate_attributes') == 'manual' && function_exists('table_realestate_attributes')){?>
